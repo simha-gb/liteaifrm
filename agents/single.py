@@ -12,13 +12,14 @@ def run(input_data, config):
     temperature = single_settings.get("temperature") or config.get("temperature", 0.3)
 
     # Инструкции — из файла или из конфига:
-    prompt_path = single_settings.get("prompt_path")
+    prompt_path = single_settings.get("prompt_path") or config.get("prompt_path")
     if prompt_path:
         with open(prompt_path, "r", encoding="utf-8") as f:
             instructions = f.read()
     else:
-        instructions = single_settings.get("instructions") or config.get("instructions",
-                                                                         "Отвечай на вопрос пользователя используя предоставленный контекст.")
+        instructions = single_settings.get("instructions") or config.get(
+            "instructions",
+            "Отвечай на вопрос пользователя используя предоставленный контекст.")
 
     tools = single_settings.get("tools") or config.get("tools", [])
 
@@ -94,5 +95,4 @@ def run(input_data, config):
         "history": local_history + [
             {"role": "assistant", "content": [{"type": "output_text", "text": getattr(response, "output_text", "")}]}
         ]
-    }
-    return output
+    }    return output

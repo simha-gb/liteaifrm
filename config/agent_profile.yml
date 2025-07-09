@@ -26,14 +26,18 @@ agent_sequence:
 
 agent_settings:
   summarizer:
+    prompt_path: "prompts/summarizer.txt"
     temperature: 0.4
     some_param: "value"
   researcher:
+    prompt_path: "prompts/researcher.txt"
     temperature: 0.15
     search_top_k: 5
   coder:
+    prompt_path: "prompts/coder.txt"
     max_tokens: 300
   runner:
+    prompt_path: "prompts/runner.txt"
     exec_timeout: 10
 
 # Для одиночного режима
@@ -41,5 +45,4 @@ single: single    # имя агента (например single.py, researcher.
 single_settings:
   prompt_path: "prompts/single_prompt.txt"
   temperature: 0.2
-  input: "Текст или вопрос для одиночного агента"
-  some_param: "одиночный режим"
+  input: "Текст или вопрос для одиночного агента"  some_param: "одиночный режим"
