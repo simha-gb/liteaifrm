@@ -7,12 +7,11 @@ retriever:
   vector_db: chromadb
   chunk_size: 500
   top_k: 3
-  faiss_index_path: memory/rag_faiss.index
-  faiss_meta_path: memory/rag_faiss_meta.pkl
+  faiss_index_path: memories/rag_faiss.index
+  faiss_meta_path: memories/rag_faiss_meta.pkl
 
 tools:
   - type: web_search
-
 
 # Режим работы
 orchestra_mode: true
@@ -29,20 +28,32 @@ agent_settings:
     prompt_path: "prompts/summarizer.txt"
     temperature: 0.4
     some_param: "value"
+    retriever:
+      enabled: true
+      top_k: 3
   researcher:
     prompt_path: "prompts/researcher.txt"
     temperature: 0.15
     search_top_k: 5
+    retriever:
+      enabled: false
   coder:
     prompt_path: "prompts/coder.txt"
     max_tokens: 300
+    retriever:
+      enabled: false
   runner:
     prompt_path: "prompts/runner.txt"
     exec_timeout: 10
+    retriever:
+      enabled: false
 
 # Для одиночного режима
-single: single    # имя агента (например single.py, researcher.py, coder.py и т.д.)
+single: single
 single_settings:
   prompt_path: "prompts/single_prompt.txt"
   temperature: 0.2
-  input: "Текст или вопрос для одиночного агента"  some_param: "одиночный режим"
+  some_param: "одиночный режим"
+  retriever:
+    enabled: true
+  some_param: "одиночный режим"
