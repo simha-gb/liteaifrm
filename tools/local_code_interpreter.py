@@ -1,14 +1,20 @@
+"""Helpers for executing code snippets.
+
+WARNING: running untrusted code is dangerous. Use a proper sandbox in production.
+"""
+
 import sys
 import io
 
+
 def run_code(code):
-    # Очень упрощенный sandbox — запуск кода в string (дальше можно добавить ограничение импорта, времени, и т.д.)
+    """Execute code and capture stdout/stderr. No sandboxing!"""
     old_stdout = sys.stdout
     old_stderr = sys.stderr
     sys.stdout = mystdout = io.StringIO()
     sys.stderr = mystderr = io.StringIO()
     try:
-        exec(code, {})  # В реале надо sandbox
+        exec(code, {})
         result = mystdout.getvalue()
         error = mystderr.getvalue()
     except Exception as e:
