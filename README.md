@@ -38,3 +38,19 @@ agent_settings:
 When `retriever.enabled` is true for an agent, the FAISS index will be loaded
 and used to provide additional context during generation.
 
+
+### Orchestration modes
+
+Set `orchestra_mode` to `true` in `config/agent_profile.yml` and choose one of
+five orchestration types via `orchestration_type`:
+`sequential`, `planner`, `tree`, `router` or `reflective`.
+The selected mode determines how agents are executed.
+
+* **sequential** – run agents from `agent_sequence` one after another.
+* **planner** – a `planner_agent` returns the list of agents to run.
+* **tree** – spawn agents according to `agent_tree` starting from its `root` key.
+* **router** – choose agents based on the `router_map` section and fields of the input.
+* **reflective** – after each agent a `reflection_agent` may request a retry.
+
+Switching the value in the YAML file allows quick experimentation with different
+execution strategies.
