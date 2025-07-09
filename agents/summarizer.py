@@ -1,4 +1,5 @@
 from utils.openai_client import get_client
+from utils.rag import search
 
 def run(input_data, config):
     openai = get_client(config)
@@ -34,11 +35,18 @@ def run(input_data, config):
     if tools and isinstance(tools[0], str):
         tools = [fix_tool(t) for t in tools]
 
+    # --- RAG context ---
+    retriever_cfg = config.get("retriever", {})
+    context_text = ""
+    if retriever_cfg.get("enabled"):
+        chunks = search(message, retriever_cfg, config)
+        context_text = "\n".join([c["content"] for c in chunks])
+
     # История для Responses API (можно усложнить, если надо)
-    local_history = [
-        {"role": "system", "content": [{"type": "input_text", "text": instructions}]},
-        {"role": "user", "content": [{"type": "input_text", "text": message}]}
-    ]
+    local_history = [{"role": "system", "content": [{"type": "input_text", "text": instructions}]}]
+    if context_text:
+        local_history.append({"role": "system", "content": [{"type": "input_text", "text": f"Контекст:\n{context_text}"}]})
+    local_history.append({"role": "user", "content": [{"type": "input_text", "text": message}]})
 
     # Запрос к Responses API
     response = openai.responses.create(
