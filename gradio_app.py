@@ -22,6 +22,8 @@ def chat_gradio(message, history):
             return result["research"]
         if "code" in result:
             return result["code"]
+        if "output_text" in result:
+            return result["output_text"]
         # иначе — просто показываем всё содержимое как текст
         return str(result)
     return str(result)
