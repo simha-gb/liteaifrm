@@ -68,4 +68,3 @@ def run(input_data, config):
         ]
     }
     return output
-    return output
