@@ -52,3 +52,4 @@ def run(input_data, config):
     summary = getattr(response, "output_text", None) or getattr(response, "text", "")
     print("[summarizer] summary:", summary)
     return {"summary": summary}
+
