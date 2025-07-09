@@ -1,0 +1,45 @@
+# Глобальные параметры
+model: gpt-4o-mini
+temperature: 0.3
+
+retriever:
+  enabled: true
+  vector_db: chromadb
+  chunk_size: 500
+  top_k: 3
+  faiss_index_path: memory/rag_faiss.index
+  faiss_meta_path: memory/rag_faiss_meta.pkl
+
+tools:
+  - type: web_search
+
+
+# Режим работы
+orchestra_mode: true
+orchestration_type: sequential
+
+agent_sequence:
+  - summarizer
+  - researcher
+  - coder
+  - runner
+
+agent_settings:
+  summarizer:
+    temperature: 0.4
+    some_param: "value"
+  researcher:
+    temperature: 0.15
+    search_top_k: 5
+  coder:
+    max_tokens: 300
+  runner:
+    exec_timeout: 10
+
+# Для одиночного режима
+single: single    # имя агента (например single.py, researcher.py, coder.py и т.д.)
+single_settings:
+  prompt_path: "prompts/single_prompt.txt"
+  temperature: 0.2
+  input: "Текст или вопрос для одиночного агента"
+  some_param: "одиночный режим"
