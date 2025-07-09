@@ -37,3 +37,4 @@ if __name__ == "__main__":
             break
         bot_reply = chat_gradio(message, history=[])
         print("Бот:", bot_reply)
+
