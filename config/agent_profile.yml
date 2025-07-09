@@ -57,3 +57,12 @@ single_settings:
   retriever:
     enabled: true
   some_param: "одиночный режим"
+
+# Additional orchestration settings
+# router_map: defines which agents handle a task key
+# router_map:
+#   summarize: summarizer
+#   code: [researcher, coder]
+# default_route: [summarizer]
+# reflection_agent: reviewer
+reflection_agent: reviewer

@@ -1,5 +1,6 @@
 import importlib
 
+
 def run(config):
     if config.get("orchestra_mode"):
         typ = config.get("orchestration_type", "sequential")
@@ -12,10 +13,16 @@ def run(config):
         elif typ == "tree":
             from .tree import run_tree
             return run_tree(config)
+        elif typ == "router":
+            from .router import run_router
+            return run_router(config)
+        elif typ == "reflective":
+            from .reflective import run_reflective
+            return run_reflective(config)
         else:
             raise ValueError(f"Unknown orchestration_type: {typ}")
     else:
-        # Одиночный агент
+        # Single agent mode
         agent_name = config.get("single", config["agent_sequence"][0])
         agent_mod = importlib.import_module(f"agents.{agent_name}")
         input_data = config.get("input", None)
