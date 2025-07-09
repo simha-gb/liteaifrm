@@ -1,4 +1,3 @@
-import json
 from utils.openai_client import get_client
 from utils.rag import search
 
